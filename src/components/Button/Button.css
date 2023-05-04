@@ -1,0 +1,15 @@
+.green {
+    background-color: greenyellow;
+}
+
+.red {
+    background-color: red;
+}
+
+.small {
+    transform: scale(0.8);
+}
+
+.large {
+    transform: scale(1.2);
+}

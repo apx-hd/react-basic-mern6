@@ -1,14 +1,20 @@
 import "./CounterLayout.css";
+import { useState } from "react";
+import Button from "../components/Button";
 
 function CounterLayout() {
-  let counter = 0;
+  // let counter = 0;
+  const [counter, setCounter] = useState(0);
 
   const handleIncrease = () => {
-    counter++;
+    // setCounter(counter + 1)
+    setCounter((prev) => prev + 1);
     console.log(counter);
   };
+
   const handleDecrease = () => {
-    counter--;
+    // setCounter(counter - 1)
+    setCounter((prev) => prev - 1);
     console.log(counter);
   };
 
@@ -16,9 +22,9 @@ function CounterLayout() {
     <div className="counter-container">
       <h1 className="counter-heading">Counter</h1>
       <div className="btn-wrapper">
-        <button className="counter-btn" onClick={handleDecrease}>-</button>
+        <Button handleClick = {handleDecrease} color="error" size="small"> - </Button>
         <span className="count">{counter}</span>
-        <button className="counter-btn" onClick={handleIncrease}>+</button>
+        <Button handleClick = {handleIncrease} color="success" size="large" disabled> + </Button>
       </div>
     </div>
   );
