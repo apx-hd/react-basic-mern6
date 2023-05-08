@@ -1,6 +1,6 @@
 import "./CounterLayout.css";
 import { useState } from "react";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 
 function CounterLayout() {
   // let counter = 0;
