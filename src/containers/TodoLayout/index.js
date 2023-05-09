@@ -1,10 +1,43 @@
 import "./TodoLayout.css";
 import Button from "../../components/Button";
-import { useState } from "react";
+import Input from "../../components/Input";
+import { useState, useEffect } from "react";
 
 function TodoLayout() {
   const [todoText, setTodoText] = useState("");
   const [todoList, setTodoList] = useState([]);
+  const [saveData, setSaveData] = useState(false)
+
+  useEffect(() => {
+    const todoList = JSON.parse(localStorage.getItem("todoList")) || [];
+    setTodoList(todoList);
+  }, []);
+
+  useEffect(() => {
+    setSaveData(true)
+  }, [todoList])
+
+  useEffect(() => {
+    if (saveData) {
+      localStorage.setItem("todoList", JSON.stringify(todoList));
+      setSaveData(false)
+    }
+  }, [saveData]);
+
+  //useEffect
+  // useEffect(() => {
+  //   console.log("Something happened");
+  // })
+  // useEffect(() => {
+  //   console.log("Component Mounted");
+
+  //   return () => {
+  //     console.log("Component Unmounted")
+  //   }
+  // }, [])
+  // useEffect(() => {
+  //   console.log("todoList updated");
+  // }, [todoList])
 
   const addTodo = () => {
     setTodoList([...todoList, todoText]);
@@ -19,10 +52,9 @@ function TodoLayout() {
       <div className="todo-container">
         <div className="todo-header">Todo Application</div>
         <div className="todo-input-container">
-          <input
+          <Input
             type="text"
-            className="todo-input"
-            placeholder="Add todo"
+            placeholder="Add Todo"
             value={todoText}
             onChange={(e) => setTodoText(e.target.value)}
           />

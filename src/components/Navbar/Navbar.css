@@ -1,0 +1,25 @@
+.navbar {
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px
+}
+
+.navbar-item {
+    font-size: 20px;
+    font-family: sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-item:hover {
+    color: #ffc107;
+}
