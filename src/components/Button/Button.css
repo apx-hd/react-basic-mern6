@@ -1,9 +1,9 @@
 .green {
-    background-color: greenyellow;
+    background-color: green;
 }
 
 .red {
-    background-color: red;
+    background-color: maroon;
 }
 
 .small {
@@ -12,4 +12,10 @@
 
 .large {
     transform: scale(1.2);
+}
+
+.counter-btn {
+    font-size: 40px;
+    font-weight: bold;
+    color: white
 }

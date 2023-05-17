@@ -2,15 +2,24 @@ import "./TodoLayout.css";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateText, loadTodo, addTodo, deleteTodo } from "../../store/slices/todoSlice";
 
 function TodoLayout() {
-  const [todoText, setTodoText] = useState("");
-  const [todoList, setTodoList] = useState([]);
+  // const [todoText, setTodoText] = useState("");
+  // const [todoList, setTodoList] = useState([]);
   const [saveData, setSaveData] = useState(false)
 
+  //Using Redux
+  const { todoText, todoList } = useSelector((state) => state.todo);
+  const { value } = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
+
+  //Saving the todo so that it can be recovered after refreshing the page
   useEffect(() => {
     const todoList = JSON.parse(localStorage.getItem("todoList")) || [];
-    setTodoList(todoList);
+    // setTodoList(todoList);
+    dispatch(loadTodo(todoList))
   }, []);
 
   useEffect(() => {
@@ -24,41 +33,31 @@ function TodoLayout() {
     }
   }, [saveData]);
 
-  //useEffect
-  // useEffect(() => {
-  //   console.log("Something happened");
-  // })
-  // useEffect(() => {
-  //   console.log("Component Mounted");
-
-  //   return () => {
-  //     console.log("Component Unmounted")
-  //   }
-  // }, [])
-  // useEffect(() => {
-  //   console.log("todoList updated");
-  // }, [todoList])
-
-  const addTodo = () => {
-    setTodoList([...todoList, todoText]);
-    setTodoText("");
+  const addTodoList = () => {
+    // setTodoList([...todoList, todoText]);
+    // setTodoText("");
+    if (todoText !== "") {
+      dispatch(addTodo())
+    }
   };
 
-  const deleteTodo = (index) => {
-    setTodoList(todoList.filter((_, i) => i !== index));
+  const deleteTodoList = (index) => {
+    // setTodoList(todoList.filter((_, i) => i !== index));
+    dispatch(deleteTodo(index))
   };
   return (
     <>
       <div className="todo-container">
+        <div className="todo-header">Counter is at {value}</div>
         <div className="todo-header">Todo Application</div>
         <div className="todo-input-container">
           <Input
             type="text"
             placeholder="Add Todo"
             value={todoText}
-            onChange={(e) => setTodoText(e.target.value)}
+            onChange={(e) => dispatch(updateText(e.target.value))}
           />
-          <Button size="small" handleClick={addTodo}>
+          <Button size="small" handleClick={addTodoList}>
             Add
           </Button>
         </div>
@@ -76,7 +75,7 @@ function TodoLayout() {
                     <Button
                       size="small"
                       color="error"
-                      handleClick={() => deleteTodo(index)}
+                      handleClick={() => deleteTodoList(index)}
                     >
                       Delete
                     </Button>
